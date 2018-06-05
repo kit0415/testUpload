@@ -13,9 +13,9 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
         return 0;
 // if everything is ok, try to uploads file
     } else {
-        echo "in here ".$target_dir;
+       // echo "in here ".$target_dir;
         $status =move_uploaded_file(($_FILES["fileToUpload"]["tmp_name"]), $target_file);
-        echo "status is: ".(string)$status;
+       // echo "status is: ".(string)$status;
         if ($status == 1) {
             echo "in anihter akise";
             if (checkFileType($imageFileType) == 1){
@@ -54,7 +54,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 $pythonFile = basename($_FILES["fileToUpload"]["name"]);
                 $pythonData = array("uploads/testcase/input/python/pythondata1.in","uploads/testcase/input/python/pythondata2.in","uploads/testcase/input/python/pythondata3.in");
                 $commandList =array("python ".$target_dir."/".$pythonFile." < ".$pythonData[0],"python ".$target_dir."/".$pythonFile." < ".$pythonData[1],"python ".$target_dir."/".$pythonFile." < ".$pythonData[2]);
-                print_r($commandList);
+
 
                 $outputCommand = array("cat uploads/testcase/expected_outcome/python/pythoncase.txt","cat uploads/testcase/expected_outcome/python/pythoncase2.txt","cat uploads/testcase/expected_outcome/python/pythoncase3.txt");
                 $expected_outcome = array(shell_exec($outputCommand[0]),shell_exec($outputCommand[1]),shell_exec($outputCommand[2]));

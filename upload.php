@@ -9,12 +9,12 @@ if (isset($_POST["task"]) && isset($_POST["lab"]) &&!empty($_POST["task"]) && !e
 
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     //$returnData =array(1,$target_file,$imageFileType,$target_dir);
-
+    $uploadOk = 1;
 
 }
 else{
     echo "Not set";
-
+    $uploadOk = 0;
 }
 // Check if image file is a actual image or fake image
 

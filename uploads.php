@@ -13,11 +13,12 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
         return 0;
 // if everything is ok, try to uploads file
     } else {
+
        // echo "in here ".$target_dir;
         $status =move_uploaded_file(($_FILES["fileToUpload"]["tmp_name"]), $target_file);
        // echo "status is: ".(string)$status;
         if ($status == 1) {
-            echo "in anihter akise";
+           // echo "in anihter akise";
             if (checkFileType($imageFileType) == 1){
                 chmod($target_file, 0777);
                 $filename1 = basename($_FILES["fileToUpload"]["name"],".c");
@@ -34,7 +35,12 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
                 $testing = shell_exec("diff -b uploads/testcase/expected_outcome/C/testcase1.txt uploads/IS/ICT1001/1700210/Lab1/Task1/testResult.txt");
                 echo "Using diff result is ".$testing;
-                $score = round(100.0 - (count($result)*(100/3)),2);
+                if (count($outputCommand)==0){
+                    $score = 0.0;
+                }else{
+                    $score = round(100.0 - (count($result)*(100/3)),2);
+                }
+
                 echo "<table>";
                 echo "<tr><th>Expected Outcome:</th><th>Your Outcome:</th></tr>";
                 echo "<tr><td>$expected_outcome[0]</td><td>$user_outcome[0]</td></tr>";

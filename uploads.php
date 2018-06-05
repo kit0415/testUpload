@@ -55,11 +55,10 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 $dataFile = array("uploads/testcase/input/python/pythondata1.in","uploads/testcase/input/python/pythondata2.in","uploads/testcase/input/python/pythondata3.in");
                 $commandList =array("python ".$filename1."<".$dataFile[0],"python ".$filename1."<".$dataFile[1],"python ".$filename1."<".$dataFile[2]);
                 //print_r($commandList);
-
-                shell_exec($commandList[0]);
+               
                 $outputCommand = array("cat uploads/testcase/expected_outcome/python/pythoncase.txt","cat uploads/testcase/expected_outcome/python/pythoncase2.txt","cat uploads/testcase/expected_outcome/python/pythoncase3.txt");
                 $expected_outcome = array(shell_exec($outputCommand[0]),shell_exec($outputCommand[1]),shell_exec($outputCommand[2]));
-                $user_outcome = array(shell_exec($commandList[1]),shell_exec($commandList[2]),shell_exec($commandList[3]));
+                $user_outcome = array(shell_exec($commandList[0]),shell_exec($commandList[1]),shell_exec($commandList[2]));
                 // sleep(2);
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
                 $testing = shell_exec("diff -b uploads/IS/ICT1001/1700210/Lab1/Task1/testResult.txt /var/www/html/testUpload/uploads/testcase/expected_outcome/C/testcase1.txt");

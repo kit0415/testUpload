@@ -106,7 +106,6 @@ function checkFileType($imageFileType)
 
 function createDir(){
     if (isset($_POST["task"]) && isset($_POST["lab"]) &&!empty($_POST["task"]) && !empty($_POST["lab"])){
-
         $taskName = $_POST["task"];
         $labName = $_POST["lab"];
         shell_exec('mkdir -p uploads/IS/ICT1001/1700210/'.$labName.'/'.$taskName.'/');
@@ -120,7 +119,7 @@ function createDir(){
         return $returnData;
     }
     else{
-        echo "NOt set";
+        echo "Not set";
         $returnData =array(0);
         return $returnData;
     }

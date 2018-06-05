@@ -22,7 +22,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 chmod($target_file, 0777);
                 $filename1 = basename($_FILES["fileToUpload"]["name"],".c");
                 $filename2 = basename($_FILES["fileToUpload"]["name"]);
-                $dataFile = array("/var/www/html/testUpload/uploads/testcase/input/C/cdata1.in","/var/www/html/testUpload/uploads/testcase/input/C/cdata2.in","/var/www/html/testUpload/uploads/testcase/input/C/cdata3.in");
+                $dataFile = array("uploads/testcase/input/C/cdata1.in","uploads/testcase/input/C/cdata2.in","uploads/testcase/input/C/cdata3.in");
                 $commandList =array("gcc -o ".$target_dir.$filename1." ".$target_dir.$filename2,"./".$target_dir.$filename1."<".$dataFile[0],"./".$target_dir.$filename1."<".$dataFile[1],"./".$target_dir.$filename1."<".$dataFile[2]);
                 //print_r($commandList);
 
@@ -32,7 +32,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 $user_outcome = array(shell_exec($commandList[1]),shell_exec($commandList[2]),shell_exec($commandList[3]));
                 // sleep(2);
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
-                $testing = shell_exec("diff -b /var/www/html/testUpload/uploads/IS/ICT1001/1700210/Lab1/Task1/testResult.txt /var/www/html/testUpload/uploads/testcase/expected_outcome/C/testcase1.txt");
+                $testing = shell_exec("diff -b uploads/testcase/expected_outcome/C/testcase1.txt uploads/IS/ICT1001/1700210/Lab1/Task1/testResult.txt");
                 echo "Using diff result is ".$testing;
                 $score = round(100.0 - (count($result)*(100/3)),2);
                 echo "<table>";
@@ -51,17 +51,32 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
             }
             elseif (checkFileType($imageFileType)==2){
                 chmod($target_file, 0777);
-                $command1 = 'echo "$(cat uploads/testcase/expected_outcome/python/testcase1.txt)"';
+                $filename1 = basename($_FILES["fileToUpload"]["name"]);
+                $dataFile = array("uploads/testcase/input/python/pythondata1.in","uploads/testcase/input/python/pythondata2.in","uploads/testcase/input/python/pythondata3.in");
+                $commandList =array("python ".$filename1."<".$dataFile[0],"python ".$filename1."<".$dataFile[1],"python ".$filename1."<".$dataFile[2]);
+                //print_r($commandList);
 
-                $output1 = shell_exec($command1);
-                echo "<h1>Expected Outcome</h1>";
-                echo "<pre>$output1</pre>";
-                sleep(5);
-                echo "<h1>Your Outcome</h1>";
-                $command2 = 'grep -vxF -f uploads/testcase1.txt uploads/test.txt';
-                $output = shell_exec($command2);
-                echo "<pre>$output</pre>";
-                echo $target_file;
+                shell_exec($commandList[0]);
+                $outputCommand = array("cat uploads/testcase/expected_outcome/python/pythoncase.txt","cat uploads/testcase/expected_outcome/python/pythoncase2.txt","cat uploads/testcase/expected_outcome/python/pythoncase3.txt");
+                $expected_outcome = array(shell_exec($outputCommand[0]),shell_exec($outputCommand[1]),shell_exec($outputCommand[2]));
+                $user_outcome = array(shell_exec($commandList[1]),shell_exec($commandList[2]),shell_exec($commandList[3]));
+                // sleep(2);
+                $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
+                $testing = shell_exec("diff -b uploads/IS/ICT1001/1700210/Lab1/Task1/testResult.txt /var/www/html/testUpload/uploads/testcase/expected_outcome/C/testcase1.txt");
+                echo "Using diff result is ".$testing;
+                $score = round(100.0 - (count($result)*(100/3)),2);
+                echo "<table>";
+                echo "<tr><th>Expected Outcome:</th><th>Your Outcome:</th></tr>";
+                echo "<tr><td>$expected_outcome[0]</td><td>$user_outcome[0]</td></tr>";
+                echo "<tr><td>$expected_outcome[1]</td><td>$user_outcome[1]</td></tr>";
+                echo "<tr><td>$expected_outcome[2]</td><td>$user_outcome[2]</td></tr>";
+                echo "<tr><td>Score: </td><td>$score</td></tr>";
+                echo "</table></br>";
+
+                // sleep(5);
+
+                echo "Filename is: ".$target_file."<br/>";
+                echo "Basename is: ".$_FILES["fileToUpload"]["name"]."<br/>";
                 echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
             }
 

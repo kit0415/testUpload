@@ -16,7 +16,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
         echo "in here ".$target_dir;
         $status =move_uploaded_file(($_FILES["fileToUpload"]["tmp_name"]), $target_file);
         echo "status is: ".(string)$status;
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        if ($status == 1) {
             echo "in anihter akise";
             if (checkFileType($imageFileType) == 1){
                 chmod($target_file, 0777);

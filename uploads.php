@@ -51,17 +51,17 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
             }
             elseif (checkFileType($imageFileType)==2){
                 chmod($target_file, 0777);
-                $filename1 = basename($_FILES["fileToUpload"]["name"]);
-                $dataFile = array("uploads/testcase/input/python/pythondata1.in","uploads/testcase/input/python/pythondata2.in","uploads/testcase/input/python/pythondata3.in");
-                $commandList =array("python ".$filename1."<".$dataFile[0],"python ".$filename1."<".$dataFile[1],"python ".$filename1."<".$dataFile[2]);
-                //print_r($commandList);
+                $pythonFile = basename($_FILES["fileToUpload"]["name"]);
+                $pythonData = array("uploads/testcase/input/python/pythondata1.in","uploads/testcase/input/python/pythondata2.in","uploads/testcase/input/python/pythondata3.in");
+                $commandList =array("python ".$pythonFile."<".$pythonData[0],"python ".$pythonFile."<".$pythonData[1],"python ".$pythonFile."<".$pythonData[2]);
+                print_r($commandList);
 
                 $outputCommand = array("cat uploads/testcase/expected_outcome/python/pythoncase.txt","cat uploads/testcase/expected_outcome/python/pythoncase2.txt","cat uploads/testcase/expected_outcome/python/pythoncase3.txt");
                 $expected_outcome = array(shell_exec($outputCommand[0]),shell_exec($outputCommand[1]),shell_exec($outputCommand[2]));
                 $user_outcome = array(shell_exec($commandList[0]),shell_exec($commandList[1]),shell_exec($commandList[2]));
                 // sleep(2);
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
-                
+
                 $score = round(100.0 - (count($result)*(100/3)),2);
                 echo "<table>";
                 echo "<tr><th>Expected Outcome:</th><th>Your Outcome:</th></tr>";

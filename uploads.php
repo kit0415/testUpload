@@ -53,7 +53,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 chmod($target_file, 0777);
                 $pythonFile = basename($_FILES["fileToUpload"]["name"]);
                 $pythonData = array("uploads/testcase/input/python/pythondata1.in","uploads/testcase/input/python/pythondata2.in","uploads/testcase/input/python/pythondata3.in");
-                $commandList =array("python ".$pythonFile."<".$pythonData[0],"python ".$pythonFile."<".$pythonData[1],"python ".$pythonFile."<".$pythonData[2]);
+                $commandList =array("python ".$pythonFile."<".$pythonData[0], "python ".$pythonFile."<".$pythonData[1], "python ".$pythonFile."<".$pythonData[2]);
                 print_r($commandList);
 
                 $outputCommand = array("cat uploads/testcase/expected_outcome/python/pythoncase.txt","cat uploads/testcase/expected_outcome/python/pythoncase2.txt","cat uploads/testcase/expected_outcome/python/pythoncase3.txt");
@@ -63,7 +63,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
 
                 $score = round(100.0 - (count($result)*(100/3)),2);
-                echo "<table>";
+                echo "<br/><table>";
                 echo "<tr><th>Expected Outcome:</th><th>Your Outcome:</th></tr>";
                 echo "<tr><td>$expected_outcome[0]</td><td>$user_outcome[0]</td></tr>";
                 echo "<tr><td>$expected_outcome[1]</td><td>$user_outcome[1]</td></tr>";

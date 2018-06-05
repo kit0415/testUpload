@@ -68,7 +68,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 echo "<tr><td>$expected_outcome[0]</td><td>$user_outcome[0]</td></tr>";
                 echo "<tr><td>$expected_outcome[1]</td><td>$user_outcome[1]</td></tr>";
                 echo "<tr><td>$expected_outcome[2]</td><td>$user_outcome[2]</td></tr>";
-                echo "<tr><td>Score: </td><td>$score</td></tr>";
+                echo "<tr><td><b>Score:</b> </td><td><b>$score</b> / 100.00</td></tr>";
                 echo "</table></br>";
 
                 // sleep(5);

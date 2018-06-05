@@ -6,7 +6,8 @@ if (isset($_POST["task"]) && isset($_POST["lab"]) &&!empty($_POST["task"]) && !e
     shell_exec('chmod -R 737 uploads/');
     $target_dir = "uploads/IS/ICT1001/1700210/".$labName."/".$taskName."/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
+    echo "target dir = ",$target_dir;
+    echo "target file= ".$target_file;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     //$returnData =array(1,$target_file,$imageFileType,$target_dir);
     $uploadOk = 1;

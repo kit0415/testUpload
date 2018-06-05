@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+while inotifywait -e modify uploads/; do
+	gcc -o uploads/test uploads/test.c
+	uploads/./test > uploads/test.txt	
+	inotifywait -e modify uploads/ >location.txt
+done
+

@@ -34,7 +34,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 // sleep(2);
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
                 $testing = shell_exec("diff -b uploads/testcase/expected_outcome/C/testcase1.txt uploads/IS/ICT1001/1700210/Lab1/Task1/testResult.txt");
-                echo "Using diff result is ".$testing;
+                //echo "Using diff result is ".$testing;
                 if (count($outputCommand)==0){
                     $score = 0.0;
                 }else{
@@ -46,7 +46,7 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 echo "<tr><td>$expected_outcome[0]</td><td>$user_outcome[0]</td></tr>";
                 echo "<tr><td>$expected_outcome[1]</td><td>$user_outcome[1]</td></tr>";
                 echo "<tr><td>$expected_outcome[2]</td><td>$user_outcome[2]</td></tr>";
-                echo "<tr><td>Score: </td><td>$score</td></tr>";
+                echo "<tr><td><b>Score:</b> </td><td><b>$score</b> / 100.00</td></tr>";
                 echo "</table></br>";
 
                 // sleep(5);
@@ -68,7 +68,11 @@ function uploadFile($uploadOk,$target_file,$imageFileType,$target_dir){
                 // sleep(2);
                 $result = array_diff(array_map("trim",$expected_outcome),array_map("trim",$user_outcome));
 
-                $score = round(100.0 - (count($result)*(100/3)),2);
+                if (count($outputCommand)==0){
+                    $score = 0.0;
+                }else{
+                    $score = round(100.0 - (count($result)*(100/3)),2);
+                }
                 echo "<br/><table>";
                 echo "<tr><th>Expected Outcome:</th><th>Your Outcome:</th></tr>";
                 echo "<tr><td>$expected_outcome[0]</td><td>$user_outcome[0]</td></tr>";
